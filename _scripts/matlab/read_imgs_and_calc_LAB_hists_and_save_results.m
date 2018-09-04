@@ -15,9 +15,13 @@ for i = 3 : length(raw_photo_folders)-1
         hist_a = imhist(lab_image(:,:,2));
         hist_b = imhist(lab_image(:,:,3));
         
-        [label_str, label_categorical] = find_label( main_dir , raw_photos_images(j).name);
-        images(: , : ,  : , img_count) = raw_image(1:170,1:256,3);%reshape(raw_image(1:170,1:256,3) , 170,256,3,1);
-        image_hists_lab(: , img_count) = [hist_l', hist_a', hist_b'];
+        hist_l_normalized = hist_l / sum(hist_l(:));
+        hist_a_normalized = hist_a / sum(hist_a(:));
+        hist_b_normalized = hist_b / sum(hist_b(:));
+        
+        [label_categorical ,label_str] = find_label( main_dir , raw_photos_images(j).name);
+        images{img_count} = raw_image;%reshape(raw_image(1:170,1:256,3) , 170,256,3,1);
+        image_hists_lab(: , img_count) = [hist_l_normalized', hist_a_normalized', hist_b_normalized'];
         label_one_shot(:,img_count) = label_categorical';
         label_string{img_count} = label_str;
         

@@ -1,7 +1,7 @@
 function [label_categorical, label_string] = find_label(main_dir , img_name)
 
 all_labels = importdata([main_dir , '\' , 'categories.txt']);
-label_categorical = zeros(length(all_labels) ,17 );
+% label_categorical = zeros(length(all_labels) ,17 );
 for i = 1 : length(all_labels)
     category_record = all_labels{i};
     char_count_start = 1;
@@ -31,7 +31,7 @@ for i = 1 : length(all_labels)
         subject_label = name;
         subject_label_categorical = convert_to_one_shot(subject_label,'subject');
         
-        label_categorical(i,:) = [photo_type_categorical,...
+        label_categorical = [photo_type_categorical,...
             capture_time_categorical, ...
             light_type_categorical,...
             subject_label_categorical];
