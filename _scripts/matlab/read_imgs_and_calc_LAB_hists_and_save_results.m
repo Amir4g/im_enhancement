@@ -10,6 +10,10 @@ for i = 3 : length(raw_photo_folders)-1
         raw_image = imread([photo_dir,'\',raw_photo_folders(i).name , '\' , 'photos' , '\' , raw_photos_images(j).name]);
 %         figure;imshow(raw_image);
         fprintf('\t [INFO] reading image %d of %d from folder %s/ photos /%s \n',j-2 ,length(raw_photos_images)-1,photo_dir,raw_photo_folders(i).name);
+       
+        if length(size(raw_image)) == 2 % gray scale image
+            raw_image = cat(3, raw_image, raw_image, raw_image);
+        end
         lab_image = rgb2lab(raw_image);
         hist_l = imhist(lab_image(:,:,1));
         hist_a = imhist(lab_image(:,:,2));
@@ -28,3 +32,7 @@ for i = 3 : length(raw_photo_folders)-1
         img_count = img_count + 1;
     end
 end
+save images images -v7.3
+save image_hists_lab image_hists_lab -v7.3
+save label_one_shot label_one_shot -v7.3
+save label_string label_string -v7.3
